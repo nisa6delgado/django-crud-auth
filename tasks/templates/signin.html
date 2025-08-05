@@ -1,0 +1,17 @@
+{% extends 'template.html' %}
+
+{% block content %}
+    <h1>Inicio de sesión</h1>
+
+    {{ error }}
+
+    <form action="/signin/" method="POST">
+        {% csrf_token %}
+
+        {{ form }}
+
+        <button>
+            Iniciar sesión
+        </button>
+    </form>
+{% endblock %}
