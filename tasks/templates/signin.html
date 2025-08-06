@@ -1,17 +1,27 @@
 {% extends 'template.html' %}
 
 {% block content %}
-    <h1>Inicio de sesión</h1>
+    <div class="grid grid-cols-3">
+        <div class="col-start-2">
+            <form method="POST" class="border border-gray-300 rounded m-5 p-5">
+                <h1 class="text-3xl font-bold mb-4 text-center">Inicio de sesión</h1>
 
-    {{ error }}
+                {{ error }}
 
-    <form action="/signin/" method="POST">
-        {% csrf_token %}
+                {% csrf_token %}
 
-        {{ form }}
+                <div class="mb-3 w-full">
+                    <label for="username">Nombre de usuario</label>
+                    <input type="text" name="username" class="w-full block p-2 border border-gray-300 rounded" required>
+                </div>
 
-        <button>
-            Iniciar sesión
-        </button>
-    </form>
+                <div class="mb-3 w-full">
+                    <label for="password">Contraseña</label>
+                    <input type="password" name="password" class="w-full block p-2 border border-gray-300 rounded" required>
+                </div>
+
+                <button class="mb-4 bg-gray-400 text-white p-2 w-full rounded shadow">Inicio de sesión</button>
+            </form>
+        </div>
+    </div>
 {% endblock %}

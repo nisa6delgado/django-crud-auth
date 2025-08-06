@@ -4,32 +4,48 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Django CRUD & Auth</title>
+
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
 </head>
 <body>
-    <nav>
-        <ul>
-            <li>
-                <a href="/">Inicio</a>
-            </li>
+    <nav class="bg-gray-800 p-4">
+        <div class="container mx-auto flex items-center justify-between">
+            <div>
+                <a href="/" class="text-white text-lg font-bold">Tareas</a>
+            </div>
 
-            <li>
-                <a href="/tasks">Tareas</a>
-            </li>
+            <div class="flex space-x-4">
+                <div class="text-gray-300 hover:text-white">
+                    <a href="/">Inicio</a>
+                </div>
 
-            {% if user.is_authenticated %}
-                <li>
-                    <a href="/logout">Cerrar sesión</a>
-                </li>
-            {% else %}
-                <li>
-                    <a href="/signup">Registro</a>
-                </li>
+                {% if user.is_authenticated %}
+                    <div class="text-gray-300 hover:text-white">
+                        <a href="{% url 'tasks' %}">Tareas pendientes</a>
+                    </div>
 
-                <li>
-                    <a href="/signin">Inicio de sesión</a>
-                </li>
-            {% endif %}
-        </ul>
+                    <div class="text-gray-300 hover:text-white">
+                        <a href="{% url 'completed' %}">Tareas completadas</a>
+                    </div>
+
+                    <div class="text-gray-300 hover:text-white">
+                        <a href="{% url 'create' %}">Crear tarea</a>
+                    </div>
+                    
+                    <div class="text-gray-300 hover:text-white">
+                        <a href="{% url 'logout' %}">Cerrar sesión</a>
+                    </div>
+                {% else %}
+                    <div class="text-gray-300 hover:text-white">
+                        <a href="{% url 'signup' %}">Registro</a>
+                    </div>
+
+                    <div class="text-gray-300 hover:text-white">
+                        <a href="{% url 'signin' %}">Inicio de sesión</a>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
     </nav>
 
     {% block content %}
