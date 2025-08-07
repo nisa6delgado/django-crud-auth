@@ -1,14 +1,22 @@
 {% extends 'template.html' %}
 
 {% block content %}
-    <h1>Crear tarea</h1>
+    <div class="grid grid-cols-6">
+        <div class="col-start-2 col-span-4">
+            <h1 class="text-3xl font-bold mb-4 mx-4 mt-4">Crear tarea</h1>
 
-    {{ error }}
+            <form
+                class="block border border-gray-300 rounded mx-5 p-5"
+                action="/tasks/create/"
+                method="POST"
+            >
+                {{ error }}
 
-    <form action="/tasks/create/" method="POST">
-        {% csrf_token %}
-        {{ form.as_p }}
+                {% csrf_token %}
+                {{ form.as_p }}
 
-        <button>Guardar</button>
-    </form>
+                <button class="cursor-pointer my-2 bg-gray-600 text-white p-2 rounded shadow">Guardar</button>
+            </form>
+        </div>
+    </div>
 {% endblock %}

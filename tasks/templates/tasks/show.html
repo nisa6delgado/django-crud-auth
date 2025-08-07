@@ -1,24 +1,40 @@
 {% extends 'template.html' %}
 
 {% block content %}
-    <h1>{{ task.title }}</h1>
+    <div class="grid grid-cols-6">
+        <div class="col-start-2 col-span-4">
+            <h1 class="text-3xl font-bold mb-4 mx-4 mt-4 text-gray-400">{{ task.title }}</h1>
 
-    {{ error }}
+            {{ error }}
 
-    <form method="POST">
-        {% csrf_token %}
-        {{ form.as_p }}
+            <div class="block border border-gray-300 rounded mx-5 p-5">
+                <form method="POST">
+                    {% csrf_token %}
+                    {{ form.as_p }}
 
-        <button>Actualizar</button>
-    </form>
+                    <button class="cursor-pointer my-2 bg-gray-800 text-white p-2 rounded shadow">
+                        Actualizar
+                    </button>
+                </form>
 
-    <form action="{% url 'completed' task.id %}" method="POST">
-        {% csrf_token %}
-        <button>Completar</button>
-    </form>
+                <div class="flex gap-2">
+                    <form action="{% url 'complete' task.id %}" method="POST">
+                        {% csrf_token %}
 
-    <form action="{% url 'delete' task.id %}" method="POST">
-        {% csrf_token %}
-        <button>Eliminar</button>
-    </form>
+                        <button class="cursor-pointer my-2 bg-gray-400 text-white p-2 rounded shadow">
+                            Completar
+                        </button>
+                    </form>
+
+                    <form action="{% url 'delete' task.id %}" method="POST">
+                        {% csrf_token %}
+
+                        <button class="cursor-pointer my-2 bg-red-600 text-white p-2 rounded shadow">
+                            Eliminar
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}

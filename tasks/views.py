@@ -10,7 +10,7 @@ from django.contrib.auth.decorators import login_required
 
 
 def home(request):
-    return render(request, 'home.html')
+    return render(request, 'index.html')
 
 
 def signup(request):
@@ -64,7 +64,8 @@ def tasks(request):
     )
 
     return render(request, 'tasks/index.html', {
-        'tasks': tasks
+        'tasks': tasks,
+        'title': 'Tareas pendientes',
     })
 
 
@@ -76,7 +77,8 @@ def completed(request):
         ).order_by('-completed')
 
     return render(request, 'tasks/index.html', {
-        'tasks': tasks
+        'tasks': tasks,
+        'title': 'Tareas completadas',
     })
 
 
