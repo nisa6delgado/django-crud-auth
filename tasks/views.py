@@ -7,6 +7,8 @@ from .forms import TaskForm
 from .models import Task
 from django.utils import timezone
 from django.contrib.auth.decorators import login_required
+from .resources import TaskResource
+from django.http import HttpResponse
 
 
 def home(request):
@@ -177,3 +179,12 @@ def signin(request):
         else:
             login(request, user)
             return redirect('tasks')
+        
+
+@login_required
+def export(request):
+    resource = TaskResource()
+    dataset = resource.export()
+    response = HttpResponse(dataset.xlsx, content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
+    response['Content-Disposition'] = 'attachment; filename="tareas.xlsx"'
+    return response

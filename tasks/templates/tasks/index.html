@@ -3,7 +3,15 @@
 {% block content %}
     <div class="grid grid-cols-6">
         <div class="col-start-2 col-span-4">
-            <h1 class="text-3xl font-bold mb-4 mt-4 mx-5">{{ title }}</h1>
+            <div class="flex justify-between">
+                <div>
+                    <h1 class="text-3xl font-bold mb-4 mt-4 mx-5">{{ title }}</h1>
+                </div>
+
+                <div class="mt-6 mx-5">
+                    <a href="/tasks/export" class="rounded p-2 bg-green-600 text-white">Exportar a Excel</a>
+                </div>
+            </div>
 
             <div>
                 {% for task in tasks %}
