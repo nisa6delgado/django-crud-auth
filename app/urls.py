@@ -34,5 +34,6 @@ urlpatterns = [
     path('tasks/<int:id>/complete', views.complete, name='complete'),
     path('tasks/<int:id>/delete', views.delete, name='delete'),
 
-    path('tasks/export', views.export, name='export'),
+    path('tasks/excel', views.excel, name='excel'),
+    path('tasks/pdf', views.pdf, name='pdf'),
 ]
