@@ -9,6 +9,12 @@
                 </div>
 
                 <div class="mt-6 mx-5">
+                    <div class="inline" x-data="{ open: false }">
+                        <a @click="open = true" href="#" class="rounded p-2 bg-green-600 text-white">Importar desde Excel</a>
+
+                        {% include 'tasks/import.html' %}
+                    </div>
+
                     <a href="/tasks/excel" class="rounded p-2 bg-green-600 text-white">Exportar a Excel</a>
                     <a href="/tasks/pdf" class="rounded p-2 bg-red-600 text-white">Exportar a PDF</a>
                 </div>

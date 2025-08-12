@@ -260,3 +260,15 @@ def pdf(request):
     response = HttpResponse(buffer.getvalue(), content_type='application/pdf')
     response['Content-Disposition'] = 'attachment; filename="tareas.pdf"'
     return response
+
+
+def export(request):
+    if request.method == 'POST':
+        form = UploadFileForm(request.POST, request.FILS)
+
+        if (form.is_valid()):
+            file = request.FILES['file']
+
+            fs = FileSystemStorage()
+
+            filePath = fs.save(file.name, file)

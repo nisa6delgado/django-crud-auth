@@ -36,4 +36,6 @@ urlpatterns = [
 
     path('tasks/excel', views.excel, name='excel'),
     path('tasks/pdf', views.pdf, name='pdf'),
+
+    path('tasks/import', views.import, name='import'),
 ]
