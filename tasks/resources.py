@@ -1,5 +1,6 @@
 from import_export import resources, fields
-from .models import Task
+from import_export.widgets import ForeignKeyWidget
+from .models import Task, User
 
 class TaskResource(resources.ModelResource):
     title = fields.Field(column_name='Título', attribute='title')
@@ -7,7 +8,12 @@ class TaskResource(resources.ModelResource):
     created = fields.Field(column_name='Fecha de creación', attribute='created')
     completed = fields.Field(column_name='Está completado?', attribute='completed')
     important = fields.Field(column_name='Es importante?', attribute='important')
-    user = fields.Field(column_name='Usuario', attribute='user')
+
+    user = fields.Field(
+        column_name='Usuario',
+        attribute='user',
+        widget=ForeignKeyWidget(User, 'username')
+    )
 
     
     def dehydrate_created(self, Task):
@@ -26,6 +32,16 @@ class TaskResource(resources.ModelResource):
             return 'Si'
         else:
             return 'No'
+        
+
+    def before_import_row(self, row, **kwargs):
+        if 'Está completado?' in row:
+            row['Está completado?'] = True if row['Está completado?'] == 'Si' else False
+
+        if 'Es importante?' in row:
+            row['Es importante?'] = True if row['Es importante?'] == 'Si' else False
+
+        return super().before_import_row(row, **kwargs)
 
 
     class Meta:
@@ -39,3 +55,5 @@ class TaskResource(resources.ModelResource):
             'important',
             'user',
         )
+
+        exclude = ('id',)

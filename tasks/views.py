@@ -1,7 +1,9 @@
+from django.contrib import messages
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.models import User
+from django.core.files.storage import FileSystemStorage
 from django.db import IntegrityError
 from django.http import HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
@@ -12,9 +14,10 @@ from reportlab.lib import colors
 from reportlab.lib.pagesizes import letter
 from reportlab.lib.styles import getSampleStyleSheet
 from reportlab.lib.units import inch
-from .forms import TaskForm
+from .forms import TaskForm, UploadFileForm
 from .models import Task
 from .resources import TaskResource
+from .utils import importFromExcel
 
 
 def home(request):
@@ -262,13 +265,24 @@ def pdf(request):
     return response
 
 
-def export(request):
+@login_required
+def put(request):
     if request.method == 'POST':
-        form = UploadFileForm(request.POST, request.FILS)
+        form = UploadFileForm(request.POST, request.FILES)
 
         if (form.is_valid()):
             file = request.FILES['file']
 
             fs = FileSystemStorage()
-
             filePath = fs.save(file.name, file)
+
+            success, message = importFromExcel(fs.path(filePath))
+
+            print(message)
+
+            fs.delete(filePath)
+
+            messages.success(request, '¡Éxito!')
+            back = request.META.get('HTTP_REFERER', '/')
+            return redirect(back)
+        

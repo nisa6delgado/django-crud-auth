@@ -28,3 +28,8 @@ class TaskForm(forms.ModelForm):
                 attrs={ 'class': 'mb-5' }
             ),
         }
+
+
+class UploadFileForm(forms.Form):
+    file = forms.FileField()
+    

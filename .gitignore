@@ -1,2 +1,4 @@
 /app/__pycache__
 /tasks/__pycache__
+*.xlsx
+*xls

@@ -27,15 +27,17 @@
         </div>
 
         <div class="mt-2">
-            <form action="/tasks/import" method="POST">
+            <form action="/tasks/import" enctype="multipart/form-data" method="POST">
                 {% csrf_token %}
 
                 <div x-data="{ fileName: null }" class="flex items-center justify-center w-full">
                     <input
                         type="file"
                         id="file-upload"
+                        name="file"
                         class="hidden"
                         @change="fileName = $event.target.files[0].name"
+                        accept=".xls, .xlsx, application/vnd.ms-excel, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
                     />
 
                     <div x-show="!fileName" class="flex items-center">
